@@ -50,6 +50,10 @@
     text-decoration: none;
 }
 
+.action-area {
+    margin-top: 5%;
+}
+
 /* custome tips content */
 .tips-content {
     top: 20%;
@@ -86,6 +90,10 @@ div.tips-content-wrapper p {
     height: 45px;
 }
 
+#carousel-tips {
+    margin-bottom: 0px;
+}
+
 #category-value {
     display: none;
 }
@@ -96,4 +104,8 @@ div.tips-content-wrapper p {
 
 .modal-dialog .alert {
     top: 30%;
+}
+
+.progress-bar {
+    width: 0%;
 }
