@@ -1,0 +1,156 @@
+$def with (category, tips)
+$var title: watch $category
+
+<script src="/static/js/holder.js"></script>
+<script src="/static/js/myjs.js"></script>
+<link href="/static/css/carousel.css" rel="stylesheet">
+<link href="/static/css/buttons.css" rel="stylesheet">
+<link href="/static/css/mycss.css" rel="stylesheet">
+
+<input id="category-value" value="$category"/>
+
+<!-- Carousel begin -->
+<!--<div id="carousel-intro" class="carousel slide" data-ride="carousel"> -->
+  <div id="carousel-tips" class="carousel slide">
+
+  <!-- Carousel Contents -->
+  <div class="carousel-inner">
+    $for tip in tips:
+      <div class="item" id="tips-$tip['id']">
+        <img data-src="holder.js/900x500/auto/#777:#777/">
+          <div class="carousel-caption tips-content">
+            <div class="tips-content-wrapper">
+              <h1>$tip['title']</h1>
+              <p>$tip['content']</p>
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Carousel control -->
+  <a class="left carousel-control" href="#carousel-tips" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-tips" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<!-- Carousel End -->
+
+<!-- Action Begin -->
+<div class="action-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="action">
+          <a href="#" id="addaction"
+            class="button button-circle button-flat-primary"
+            data-toggle="modal" data-target="#addModal">Add</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="action">
+          <a href="#" id="editaction"
+            class="button button-circle button-flat-action"
+            data-toggle="modal" data-target="#editModal">Edit</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="action">
+          <a href="#" id="deleteaction"
+            class="button button-circle button-flat-caution"
+            data-toggle="modal" data-target="#deleteModal">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Action End -->
+
+<!-- Modal for Action Begin -->
+<!-- Modal for Add Begin -->
+<div class="modal fade my-modal" id="addModal" tabindex="-1" role="dialog"
+  aria-hidden="flase">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;
+        </button>
+        <h4 class="modal-title">Add Tips</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="tips-title"> Tips Title </label>
+          <input id="tips-title" type=text" placeholder="Title"
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="new-tips-content"> Tips Content </label>
+          <textarea id="new-tips-content" row="3" placeholder="Tips Content"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="addtips" href="#" class="btn btn-primary btn-lg">Add</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for Add End -->
+
+<!-- Modal for Add Begin -->
+<div class="modal fade my-modal" id="editModal" tabindex="-1" role="dialog"
+  aria-hidden="flase">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"
+          aria-hidden="true">&times;
+        </button>
+        <h4 class="modal-title">Edit Tips</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="tips-title"> Tips Title </label>
+          <input id="tips-title" type=text" placeholder="Title"
+            class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="new-tips-content"> Tips Content </label>
+          <textarea id="new-tips-content" row="3" placeholder="Tips Content"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="edittips" href="#" class="btn btn-primary btn-lg">Update</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for Add End -->
+
+<!-- Modal for Delete Begin -->
+<div class="modal fade my-modal" id="deleteModal" tabindex="-1" role="dialog"
+  aria-hidden="flase">
+  <div class="modal-dialog">
+      <div class="modal-body alert alert-danger">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;
+          </button>
+          <h4> Are you sure to delete this tips? </h4>
+          <p>
+            <a id="deletetips" 
+              href="#" class="btn btn-danger btn-lg">Delete</a>
+            <a id="canceldelete" 
+              data-dismiss="modal"
+              href="#" class="btn btn-default btn-lg">Cancel</a>
+          </p>
+      </div>
+  </div>
+</div>
+<!-- Modal for Delete End -->
+
+
+<!-- Modal for Action End -->
+

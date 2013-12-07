@@ -1,0 +1,99 @@
+.vcenter {
+    top: 40%;
+}
+
+/* custome navbar */
+.navbar-brand {
+    font-size: x-large;
+}
+
+.navbar > .container .mybrand {
+    margin-left: -180px;
+}
+
+.navbar-nav {
+    font-size: large;
+}
+
+/* custome introduction tips and carousel */
+.tips-intro {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.tips-intro p {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: large;
+}
+
+#carousel-intro {
+    height: 400px;
+    margin-bottom: 0px;
+}
+
+#carousel-intro .carousel-inner .item {
+    height: 400px;
+}
+
+#carousel-intro .carousel-inner > .item > img {
+    height: 400px;
+}
+
+
+/* custome action area */
+.action {
+    text-align: center;
+}
+
+.action a {
+    text-decoration: none;
+}
+
+/* custome tips content */
+.tips-content {
+    top: 20%;
+}
+
+div.tips-content-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+div.tips-content-wrapper h1 {
+    text-align: left;
+}
+
+div.tips-content-wrapper p {
+    text-align: center;
+}
+
+/* custome modal */
+.my-modal .modal-dialog {
+    height: 100%;
+}
+
+.my-modal .modal-dialog .modal-content{
+    top: 20%;
+}
+
+.my-modal .modal-dialog .modal-content .modal-footer{
+    text-align: center;
+}
+
+.btn-lg {
+    width: 135px;
+    height: 45px;
+}
+
+#category-value {
+    display: none;
+}
+
+.modal-dialog .alert p{
+    text-align: center;
+}
+
+.modal-dialog .alert {
+    top: 30%;
+}
