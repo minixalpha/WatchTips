@@ -5,7 +5,70 @@ $(document).ready(function() {
     $('#edittips').on('click', editTips);
     $('#editaction').on('click', editPrepare);
     $('#deletetips').on('click', deleteTips);
+    $('.carousel-control.right').on('click', nextCarousel);
+    $('.carousel-control.left').on('click', preCarousel);
 });
+
+/* Carousel Control Action */
+function preCarousel() {
+    var pg = $('.progress');
+    var pb = $('.progress-bar');
+    var inner = $('.carousel-inner');
+
+    var width_max = pg.width();
+    var width = pb.width();
+    var chidNum = inner.children().length;
+
+    var step = width_max/chidNum;
+    var newProg = Math.max (width - step, 0);
+    pb.css('width', newProg);
+}
+
+function nextCarousel() {
+    var pg = $('.progress');
+    var pb = $('.progress-bar');
+    var inner = $('.carousel-inner');
+
+    var width_max = pg.width();
+    var width = pb.width();
+    var chidNum = inner.children().length;
+
+    var step = width_max/chidNum;
+    var newProg = Math.min (width + step, width_max);
+    pb.css('width', newProg);
+}
+
+function updateProgressAfterAdd() {
+    var pg = $('.progress');
+    var pb = $('.progress-bar');
+    var inner = $('.carousel-inner');
+
+    var width_max = pg.width();
+    var width = pb.width();
+    var chidNum = inner.children().length;
+
+    var step = width_max / chidNum;
+    var preStep = width_max / (chidNum-1);
+    var progNum = width / preStep;
+    var newProg = Math.max (step*progNum, 0);
+    pb.css('width', newProg);
+}
+
+function updateProgressAfterDelete() {
+    var pg = $('.progress');
+    var pb = $('.progress-bar');
+    var inner = $('.carousel-inner');
+
+    var width_max = pg.width();
+    var width = pb.width();
+    var chidNum = inner.children().length;
+
+    var step = width_max/chidNum;
+    var preStep = width_max / (chidNum+1);
+    var progNum = width / preStep;
+    var newProg = Math.min (step*progNum, width_max);
+    pb.css('width', newProg);
+}
 
 /* Set tips content position: center */
 function setTipsPosition() {
@@ -56,10 +119,11 @@ function addTips() {
                   </div>\
               </div>'
         );
+
         Holder.run();
         $('.carousel').carousel("pause").removeData();
-        firstItemActive();
         pauseCarousel();
+        updateProgressAfterAdd();
     }, 'json');
 }
 
@@ -73,7 +137,7 @@ function editPrepare() {
 }
 
 
-/* Add new tips for the current category */
+/* Edit tips for the current category */
 function editTips() {
     $('#editModal').modal('hide');
     var tipsID = $(".carousel-inner .item.active").attr("id");
@@ -111,8 +175,9 @@ function deleteTips() {
             var inner = $('.carousel-inner');
             var default_tips = JSON.parse(gdata['default']);
             var dt_len = default_tips.length;
-            console.log(default_tips);
-            $(".carousel-inner .item.active").remove();
+            var curItem = $(".carousel-inner .item.active");
+            var nextItem = curItem.next();
+            curItem.remove();
             if (inner.children().length == 0) {
                 for (var i=0; i<dt_len; i++) {
                     inner.append(
@@ -127,11 +192,14 @@ function deleteTips() {
                           </div>'
                     );
                 }
+                firstItemActive();
                 Holder.run();
                 $('.carousel').carousel("pause").removeData();
                 pauseCarousel();
+            } else {
+                nextItem.addClass("active");
+                updateProgressAfterDelete();
             }
-            firstItemActive();
         }
     }, 'json'); 
 }
