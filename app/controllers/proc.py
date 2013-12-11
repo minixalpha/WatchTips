@@ -3,73 +3,38 @@
 import json
 import web
 from config import render
-
-
-# tips used to test before using database
-tips = {}
-tips['default'] = [
-        {
-            'id':0,
-            'title':'',
-            'content':'Add your tips'
-        },
-        {
-            'id':1,
-            'title':'',
-            'content':'Watch your tips'
-        },
-        {
-            'id':2,
-            'title':'',
-            'content':'Forget your tips'
-        }]
-tips['python'] = [
-        {
-            'id':3,
-            'title':'import this',
-            'content':'Beautiful is better than ugly,'
-            'Explicit is better than implicit'
-        },
-        {
-            'id':4,
-            'title':'import that',
-            'content':'Beautiful is better than ugly,'
-            'Explicit is better than implicit'
-        }]
-tips['javascript'] = tips['default']
-tips['html5'] = tips['default']
-tiplen = 5
+from app.models import wtdb
 
 
 # watch tips in the given category
 class watch:
     def GET(self, category):
-        cur_tips = tips.get(category)
+        cur_tips = wtdb.getTips(category=category)
         if not cur_tips:
-            cur_tips = tips['default']
+            cur_tips = wtdb.getDefaultTips()
+
         return render.watch(category, cur_tips)
 
 
 #  add a new tip in the given category
 class add:
     def POST(self):
-        global tiplen
         data = web.input()
         category = data['category']
-        print(tiplen)
         new_tips = {
-                'id': tiplen,
+                'category': category,
                 'title': data['title'],
                 'content': data['content']
                 }
         rdata = {}
-        rdata['id'] = tiplen
         rdata['action'] = "append"
-        if tips[category] == tips['default']:
-            tips[category] = []
-            rdata['action'] = "replace"
-        tips[category].append(new_tips)
-        tiplen += 1
+
+        cur_tips = wtdb.getTips(category=category)
+        if not cur_tips:
+            rdata['action'] = 'replace'
+        new_tips_id = wtdb.addTips(new_tips)
+        rdata['id'] = new_tips_id
+
         json_data = json.dumps(rdata)
         return json_data
 
@@ -78,19 +43,11 @@ class add:
 class edit:
     def POST(self):
         data = web.input()
-        category = data['category']
-        id = data['id']
-        title = data['title']
-        content = data['content']
+        rdata = {'action': 'none'}
+        updateSuccess = wtdb.updateTips(data)
+        if updateSuccess:
+            rdata['action'] = 'update'
 
-        cur_tips = tips.get(category, [])
-        rdata = {'action':'none'}
-        if not cur_tips == tips['default']:
-            for tip in cur_tips:
-                if tip['id'] == int(id):
-                    tip['title'] = title
-                    tip['content'] = content
-                    rdata['action'] = 'update'
         return json.dumps(rdata)
 
 
@@ -99,17 +56,14 @@ class delete:
     def POST(self):
         data = web.input()
         category = data['category']
-        id = data['id']
 
-        cur_tips = tips.get(category, [])
-        rdata = {'action':'none', 'default':json.dumps({})}
-        if not cur_tips == tips['default']:
-            for tip in cur_tips:
-                if tip['id'] == int(id):
-                    cur_tips.remove(tip)
-                    rdata['action'] = 'delete'
-                    if not cur_tips:
-                        rdata['default'] = json.dumps(tips['default'])
-                        tips[category] = tips['default']
-                    break
+        rdata = {'action': 'none', 'default': json.dumps({})}
+        deleteSuccess = wtdb.deleteTips(id=data['id'])
+        if deleteSuccess:
+            rdata['action'] = 'delete'
+
+        categoryNum = wtdb.getCategoryNum(category=category)
+        if not categoryNum:
+            rdata['default'] = json.dumps(wtdb.getDefaultTips())
+
         return json.dumps(rdata)
