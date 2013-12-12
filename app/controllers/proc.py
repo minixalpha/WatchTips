@@ -62,8 +62,13 @@ class delete:
         if deleteSuccess:
             rdata['action'] = 'delete'
 
-        categoryNum = wtdb.getCategoryNum(category=category)
-        if not categoryNum:
-            rdata['default'] = json.dumps(wtdb.getDefaultTips())
+        tipsNum = wtdb.getTipsNum(category=category)
+        if not tipsNum:
+            default_tips = wtdb.getDefaultTips()
+            print '00'
+            print (default_tips)
+            rdata['default'] = json.dumps(default_tips)
+            print rdata['default']
+            print '--'
 
         return json.dumps(rdata)

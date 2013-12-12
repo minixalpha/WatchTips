@@ -16,12 +16,12 @@ $var title: watch $category
   <!-- Carousel Contents -->
   <div class="carousel-inner">
     $for tip in tips:
-      <div class="item" id="tips-$tip['id']">
+      <div class="item" id="tips-$tip['tips_id']">
         <img data-src="holder.js/900x500/auto/#777:#777/">
           <div class="carousel-caption tips-content">
             <div class="tips-content-wrapper">
-              <h1>$tip['title']</h1>
-              <p>$tip['content']</p>
+              <h1>$tip['tips_title']</h1>
+              <p>$tip['tips_content']</p>
             </div>
           </div>
       </div>
