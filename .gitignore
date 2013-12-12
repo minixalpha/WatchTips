@@ -37,3 +37,6 @@ nosetests.xml
 
 # Swap File
 *.swp
+
+# Local configure file
+config.py

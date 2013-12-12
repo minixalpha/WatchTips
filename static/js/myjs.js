@@ -185,9 +185,9 @@ function deleteTips() {
         for (var i=0; i<dt_len; i++) {
           appendItemToCarousel(
             inner, 
-            default_tips[i]['id'], 
-            default_tips[i]['title'], 
-            default_tips[i]['content']
+            default_tips[i]['tips_id'], 
+            default_tips[i]['tips_title'], 
+            default_tips[i]['tips_content']
             );
         }
 
