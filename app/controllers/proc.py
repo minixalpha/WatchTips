@@ -65,10 +65,6 @@ class delete:
         tipsNum = wtdata.getTipsNum(category=category)
         if not tipsNum:
             default_tips = wtdata.getDefaultTips()
-            print '00'
-            print (default_tips)
             rdata['default'] = json.dumps(default_tips)
-            print rdata['default']
-            print '--'
 
         return json.dumps(rdata)
