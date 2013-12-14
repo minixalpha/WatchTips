@@ -3,15 +3,15 @@
 import json
 import web
 from config import render
-from app.models import wtdb
+from app.models import wtdata
 
 
 # watch tips in the given category
 class watch:
     def GET(self, category):
-        cur_tips = wtdb.getTips(category=category)
+        cur_tips = wtdata.getTips(category=category)
         if not cur_tips:
-            cur_tips = wtdb.getDefaultTips()
+            cur_tips = wtdata.getDefaultTips()
 
         return render.watch(category, cur_tips)
 
@@ -29,10 +29,10 @@ class add:
         rdata = {}
         rdata['action'] = "append"
 
-        cur_tips = wtdb.getTips(category=category)
+        cur_tips = wtdata.getTips(category=category)
         if not cur_tips:
             rdata['action'] = 'replace'
-        new_tips_id = wtdb.addTips(new_tips)
+        new_tips_id = wtdata.addTips(new_tips)
         rdata['id'] = new_tips_id
 
         json_data = json.dumps(rdata)
@@ -44,7 +44,7 @@ class edit:
     def POST(self):
         data = web.input()
         rdata = {'action': 'none'}
-        updateSuccess = wtdb.updateTips(data)
+        updateSuccess = wtdata.updateTips(data)
         if updateSuccess:
             rdata['action'] = 'update'
 
@@ -58,13 +58,13 @@ class delete:
         category = data['category']
 
         rdata = {'action': 'none', 'default': json.dumps({})}
-        deleteSuccess = wtdb.deleteTips(id=data['id'])
+        deleteSuccess = wtdata.deleteTips(id=data['id'])
         if deleteSuccess:
             rdata['action'] = 'delete'
 
-        tipsNum = wtdb.getTipsNum(category=category)
+        tipsNum = wtdata.getTipsNum(category=category)
         if not tipsNum:
-            default_tips = wtdb.getDefaultTips()
+            default_tips = wtdata.getDefaultTips()
             print '00'
             print (default_tips)
             rdata['default'] = json.dumps(default_tips)
