@@ -2,6 +2,7 @@
 
 from wtdb import db
 
+
 class WTTable:
     def __init__(self, tbname):
         self.tbname = tbname
@@ -31,7 +32,7 @@ class WTTipsTable(WTTable):
         self.title_col = 'tips_title'
         self.content_col = 'tips_content'
         self.categoryid_col = 'category_id'
-    
+
     def existTips(self, where):
         cur_tips = self.searchItem(
                 columns='*',
@@ -45,17 +46,17 @@ class WTTipsTable(WTTable):
 
     def deleteTipsByID(self, id):
         condition = self.id_col + '="' + str(id) + '"'
-        exist_tips = self.existTips(where = condition)
+        exist_tips = self.existTips(where=condition)
         deleteSuccess = False
         if exist_tips:
-            self.deleteItem(where = condition)
+            self.deleteItem(where=condition)
             deleteSuccess = True
         return deleteSuccess
 
     def getTipsByCategoryID(self, category_id):
         tips = self.searchItem(
                 columns='*',
-                where=self.categoryid_col + '="' + str(category_id) +'"'
+                where=self.categoryid_col + '="' + str(category_id) + '"'
                 )
         tips_list = []
         if tips:
@@ -67,9 +68,9 @@ class WTTipsTable(WTTable):
          new_tips: {'category_id':'X', 'title':'Y', 'content':'Z'}
         """
         values = {
-                self.categoryid_col : new_tips['category_id'],
-                self.title_col : new_tips['title'],
-                self.content_col : new_tips['content']
+                self.categoryid_col: new_tips['category_id'],
+                self.title_col: new_tips['title'],
+                self.content_col: new_tips['content']
                 }
 
         id = self.addItem(
@@ -89,8 +90,8 @@ class WTTipsTable(WTTable):
         updateSuccess = False
         if exist_tips:
             values = {
-                    self.title_col : updated_tips['title'],
-                    self.content_col : updated_tips['content']
+                    self.title_col: updated_tips['title'],
+                    self.content_col: updated_tips['content']
                     }
             self.updateItem(
                     where=self.id_col + '="' + str(updated_tips['id']) + '"',
@@ -115,7 +116,7 @@ class WTCategoryTable(WTTable):
         idlist = []
         if ids:
             idlist = list(ids)
-        
+
         id = None
         if idlist:
             id = idlist[0][self.id_col]
