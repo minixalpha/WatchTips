@@ -3,22 +3,22 @@
 import wttable
 
 
-def getCategoryID(category='default'):
-    category_id = wttable.category.getCategoryIDByName(category)
+def get_category_id(category='default'):
+    category_id = wttable.category.get_category_id_by_name(category)
     return category_id
 
 
-def getTips(category='default'):
-    category_id = wttable.category.getCategoryIDByName(category)
-    cur_tips = wttable.tips.getTipsByCategoryID(category_id)
+def get_tips(category='default'):
+    category_id = wttable.category.get_category_id_by_name(category)
+    cur_tips = wttable.tips.get_tips_by_category_id(category_id)
     return cur_tips
 
 
-def getDefaultTips():
-    return getTips(category='default')
+def get_default_tips():
+    return get_tips(category='default')
 
 
-def addTips(new_tips):
+def add_tips(new_tips):
     """
      Add new tips
 
@@ -29,17 +29,18 @@ def addTips(new_tips):
          if add success, return new_tip's id
          othewise return None
     """
-    category_id = wttable.category.getCategoryIDByName(new_tips['category'])
-    add_tips = {}
-    add_tips['category_id'] = category_id
-    add_tips['title'] = new_tips['title']
-    add_tips['content'] = new_tips['content']
-    tips_id = wttable.tips.addTips(add_tips)
+    category_id = wttable.category.get_category_id_by_name(
+            new_tips['category'])
+    tips_to_add = {}
+    tips_to_add['category_id'] = category_id
+    tips_to_add['title'] = new_tips['title']
+    tips_to_add['content'] = new_tips['content']
+    tips_id = wttable.tips.add_tips(tips_to_add)
 
     return tips_id
 
 
-def updateTips(updated_tips):
+def update_tips(tips_to_update):
     """
      Update tips
 
@@ -50,18 +51,18 @@ def updateTips(updated_tips):
          if update success, return True
          othewise return False
     """
-    updateSuccess = wttable.tips.updateTips(updated_tips)
+    update_success = wttable.tips.update_tips(tips_to_update)
 
-    return updateSuccess
-
-
-def deleteTips(id):
-    deleteSuccess = wttable.tips.deleteTipsByID(id)
-    return deleteSuccess
+    return update_success
 
 
-def getTipsNum(category):
-    category_id = wttable.category.getCategoryIDByName(category)
-    tips_list = wttable.tips.getTipsByCategoryID(category_id)
-    tips_num = len(tips_list)
-    return tips_num
+def delete_tips(id):
+    delete_success = wttable.tips.delete_tips_by_id(id)
+    return delete_success
+
+
+def get_tips_count(category):
+    category_id = wttable.category.get_category_id_by_name(category)
+    tips_list = wttable.tips.get_tips_by_category_id(category_id)
+    tips_count = len(tips_list)
+    return tips_count

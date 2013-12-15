@@ -4,25 +4,31 @@ from wtdb import db
 
 
 class WTTable:
+    """
+    WatchTips Table
+    """
     def __init__(self, tbname):
         self.tbname = tbname
 
-    def addItem(self, idcolname=None, **values):
-        id = db.insert(self.tbname, idcolname, **values)
+    def add_item(self, idcolname=None, **values):
+        item_id = db.insert(self.tbname, idcolname, **values)
         if idcolname:
-            return id
+            return item_id
         else:
             return None
 
-    def updateItem(self, where, **values):
+    def update_item(self, where, **values):
         db.update(self.tbname, where, **values)
 
-    def deleteItem(self, where):
+    def delete_item(self, where):
         db.delete(self.tbname, where)
 
-    def searchItem(self, columns, where):
+    def search_item(self, columns, where):
         items = db.select(self.tbname, what=columns, where=where)
         return items
+
+    def get_equal_condition(self, key, value):
+        return str(key) + '="' + str(value) + '"'
 
 
 class WTTipsTable(WTTable):
@@ -33,37 +39,37 @@ class WTTipsTable(WTTable):
         self.content_col = 'tips_content'
         self.categoryid_col = 'category_id'
 
-    def existTips(self, where):
-        cur_tips = self.searchItem(
+    def exist_tips(self, condition):
+        cur_tips = self.search_item(
                 columns='*',
-                where=where
+                where=condition
                 )
         if len(cur_tips):
-            tips_Exist = True
+            return True
         else:
-            tips_Exist = False
-        return tips_Exist
+            return False
 
-    def deleteTipsByID(self, id):
-        condition = self.id_col + '="' + str(id) + '"'
-        exist_tips = self.existTips(where=condition)
-        deleteSuccess = False
-        if exist_tips:
-            self.deleteItem(where=condition)
-            deleteSuccess = True
-        return deleteSuccess
+    def delete_tips_by_id(self, tips_id):
+        condition = self.get_equal_condition(self.id_col, tips_id)
+        tips_is_exist = self.exist_tips(condition=condition)
+        if tips_is_exist:
+            self.delete_item(where=condition)
+            return True
+        else:
+            return False
 
-    def getTipsByCategoryID(self, category_id):
-        tips = self.searchItem(
+    def get_tips_by_category_id(self, category_id):
+        condition = self.get_equal_condition(self.categoryid_col, category_id)
+        tips = self.search_item(
                 columns='*',
-                where=self.categoryid_col + '="' + str(category_id) + '"'
+                where=condition
                 )
         tips_list = []
         if tips:
             tips_list = list(tips)
         return tips_list
 
-    def addTips(self, new_tips):
+    def add_tips(self, new_tips):
         """
          new_tips: {'category_id':'X', 'title':'Y', 'content':'Z'}
         """
@@ -73,32 +79,35 @@ class WTTipsTable(WTTable):
                 self.content_col: new_tips['content']
                 }
 
-        id = self.addItem(
+        tips_id = self.add_item(
                 self.id_col,
                 **values
                 )
-        return id
+        return tips_id
 
-    def updateTips(self, updated_tips):
+    def update_tips(self, updated_tips):
         """
         Args:
             updated: {'id':'X', 'title':'Y', 'content':'Z'}
         """
-        exist_tips = self.existTips(
-                self.id_col + '="' + str(updated_tips['id']) + '"')
+        exist_condition = self.get_equal_condition(
+                self.id_col, updated_tips['id'])
+        tips_is_exist = self.exist_tips(exist_condition)
 
-        updateSuccess = False
-        if exist_tips:
+        if tips_is_exist:
             values = {
                     self.title_col: updated_tips['title'],
                     self.content_col: updated_tips['content']
                     }
-            self.updateItem(
-                    where=self.id_col + '="' + str(updated_tips['id']) + '"',
+            update_condition = self.get_equal_condition(
+                    self.id_col, updated_tips['id'])
+            self.update_item(
+                    where=update_condition,
                     **values
                     )
-            updateSuccess = True
-        return updateSuccess
+            return True
+        else:
+            return False
 
 
 class WTCategoryTable(WTTable):
@@ -108,19 +117,20 @@ class WTCategoryTable(WTTable):
         self.name_col = 'category_name'
         self.userid_col = 'user_id'
 
-    def getCategoryIDByName(self, category_name):
-        ids = self.searchItem(
+    def get_category_id_by_name(self, category_name):
+        search_condition = self.get_equal_condition(
+                self.name_col, category_name)
+        ids = self.search_item(
             columns=self.id_col,
-            where=self.name_col + '="' + str(category_name) + '"'
+            where=search_condition
             )
         idlist = []
         if ids:
             idlist = list(ids)
 
-        id = None
         if idlist:
-            id = idlist[0][self.id_col]
-        return id
+            category_id = idlist[0][self.id_col]
+        return category_id
 
 
 tips = WTTipsTable('wt_tips')
