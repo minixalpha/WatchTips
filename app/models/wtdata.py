@@ -8,14 +8,14 @@ def get_category_id(category='default'):
     return category_id
 
 
-def get_tips(category='default'):
+def get_tips_by_category(category='default'):
     category_id = wttable.category.get_category_id_by_name(category)
     cur_tips = wttable.tips.get_tips_by_category_id(category_id)
     return cur_tips
 
 
 def get_default_tips():
-    return get_tips(category='default')
+    return get_tips_by_category(category='default')
 
 
 def add_tips(new_tips):

@@ -9,7 +9,7 @@ from app.models import wtdata
 # watch tips in the given category
 class watch:
     def GET(self, category):
-        cur_tips = wtdata.get_tips(category=category)
+        cur_tips = wtdata.get_tips_by_category(category=category)
         if not cur_tips:
             cur_tips = wtdata.get_default_tips()
 
@@ -29,7 +29,7 @@ class add:
         rdata = {}
         rdata['action'] = "append"
 
-        cur_tips = wtdata.get_tips(category=category)
+        cur_tips = wtdata.get_tips_by_category(category=category)
         if not cur_tips:
             rdata['action'] = 'replace'
         new_tips_id = wtdata.add_tips(new_tips)
