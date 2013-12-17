@@ -3,18 +3,49 @@
 import wttable
 
 
-def get_category_id(category='default'):
-    category_id = wttable.category.get_category_id_by_name(category)
-    return category_id
-
-
 def get_tips_by_category(category='default'):
+    """
+    Get tips in the given category
+
+    Args:
+        category: name of the category
+
+    Return:
+        tips in the given category, in the form:
+
+        [
+            {
+                id_col: id_value, 
+                title_col: title_value,
+                content_col: content_value, 
+            },
+            ...
+        ]
+    """
     category_id = wttable.category.get_category_id_by_name(category)
     cur_tips = wttable.tips.get_tips_by_category_id(category_id)
     return cur_tips
 
 
 def get_default_tips():
+    """
+    Get default tips, when the category has no tips
+
+    Args:
+        category: name of the category
+
+    Return:
+        tips in the given category, in the form:
+
+        [
+            {
+                id_col: id_value, 
+                title_col: title_value,
+                content_col: content_value, 
+            },
+            ...
+        ]
+    """
     return get_tips_by_category(category='default')
 
 
@@ -57,11 +88,30 @@ def update_tips(tips_to_update):
 
 
 def delete_tips(id):
+    """
+     Delete tips
+
+     Args:
+        id: id of the tips to be deleted
+
+     Return:
+         if delete success, return True
+         othewise return False
+    """
     delete_success = wttable.tips.delete_tips_by_id(id)
     return delete_success
 
 
-def get_tips_count(category):
+def get_tips_count_by_category(category):
+    """
+     Get count of tips in the given category
+
+     Args:
+        category: name of the category
+
+     Return:
+        count of tips in the given category
+    """
     category_id = wttable.category.get_category_id_by_name(category)
     tips_list = wttable.tips.get_tips_by_category_id(category_id)
     tips_count = len(tips_list)
