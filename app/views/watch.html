@@ -2,7 +2,7 @@ $def with (category, tips)
 $var title: watch $category
 
 <script src="/static/js/holder.js"></script>
-<script src="/static/js/myjs.js"></script>
+<script src="/static/js/watchtips.js"></script>
 <link href="/static/css/carousel.css" rel="stylesheet">
 <link href="/static/css/buttons.css" rel="stylesheet">
 <link href="/static/css/mycss.css" rel="stylesheet">
@@ -91,8 +91,8 @@ $var title: watch $category
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="tips-title"> Tips Title </label>
-          <input id="tips-title" type=text" placeholder="Title"
+          <label for="new-tips-title"> Tips Title </label>
+          <input id="new-tips-title" type=text" placeholder="Title"
             class="form-control">
         </div>
         <div class="form-group">
@@ -109,7 +109,7 @@ $var title: watch $category
 </div>
 <!-- Modal for Add End -->
 
-<!-- Modal for Add Begin -->
+<!-- Modal for Edit Begin -->
 <div class="modal fade my-modal" id="editModal" tabindex="-1" role="dialog"
   aria-hidden="flase">
   <div class="modal-dialog">
@@ -122,8 +122,8 @@ $var title: watch $category
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="tips-title"> Tips Title </label>
-          <input id="tips-title" type=text" placeholder="Title"
+          <label for="new-tips-title"> Tips Title </label>
+          <input id="new-tips-title" type=text" placeholder="Title"
             class="form-control">
         </div>
         <div class="form-group">
@@ -138,7 +138,7 @@ $var title: watch $category
     </div>
   </div>
 </div>
-<!-- Modal for Add End -->
+<!-- Modal for Edit End -->
 
 <!-- Modal for Delete Begin -->
 <div class="modal fade my-modal" id="deleteModal" tabindex="-1" role="dialog"
