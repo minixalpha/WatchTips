@@ -1,0 +1,31 @@
+$def with(info)
+$var title: Register
+
+<script src="/static/js/register.js"></script>
+<link href="/static/css/signio.css" rel="stylesheet">
+
+<!-- Main Content Begin -->
+<!-- Register Form Begin -->
+<div class="main-content-wrapper">
+    <form id="signio" role="form" action="/register" method="post">
+      <div class="signio-group">
+        <input type="text" class="form-control"
+          id="username" name="username" placeholder="Username" required>
+      </div>
+      <div class="signio-group">
+        <input type="email" class="form-control"
+          id="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="signio-group">
+        <input type="password" class="form-control"
+          id="password" name="password" placeholder="Password" required>
+      </div>
+      $if not info == '':
+        <div class="alert alert-danger">$info</div>
+      <div class="signio-footer">
+        <button type="submit" class="btn btn-primary">Sign up</button>
+      </div>
+    </form>
+</div>
+<!-- Register Form End -->
+<!-- Main Content End -->

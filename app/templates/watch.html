@@ -1,13 +1,14 @@
-$def with (category, tips)
-$var title: watch $category
+$def with (category_id, category_name, tips)
+$var title: watch $category_name
 
 <script src="/static/js/holder.js"></script>
 <script src="/static/js/watchtips.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
 <link href="/static/css/carousel.css" rel="stylesheet">
 <link href="/static/css/buttons.css" rel="stylesheet">
-<link href="/static/css/mycss.css" rel="stylesheet">
+<link href="/static/css/watch.css" rel="stylesheet">
 
-<input id="category-value" value="$category"/>
+<input id="category-value" value="$category_id"/>
 
 <!-- Carousel begin -->
 <!--<div id="carousel-intro" class="carousel slide" data-ride="carousel"> -->
@@ -62,7 +63,9 @@ $var title: watch $category
         <div class="action">
           <a href="#" id="editaction"
             class="button button-circle button-flat-action"
-            data-toggle="modal" data-target="#editModal">Edit</a>
+            data-toggle="modal" data-target="#editModal">
+            Edit
+          </a>
         </div>
       </div>
       <div class="col-md-4">
@@ -80,7 +83,7 @@ $var title: watch $category
 <!-- Modal for Action Begin -->
 <!-- Modal for Add Begin -->
 <div class="modal fade my-modal" id="addModal" tabindex="-1" role="dialog"
-  aria-hidden="flase">
+  aria-hidden="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -92,12 +95,12 @@ $var title: watch $category
       <div class="modal-body">
         <div class="form-group">
           <label for="new-tips-title"> Tips Title </label>
-          <input id="new-tips-title" type=text" placeholder="Title"
+          <input id="new-tips-title" type="text" placeholder="Title"
             class="form-control">
         </div>
         <div class="form-group">
           <label for="new-tips-content"> Tips Content </label>
-          <textarea id="new-tips-content" row="3" placeholder="Tips Content"
+          <textarea id="new-tips-content" rows="3" placeholder="Tips Content"
             class="form-control"></textarea>
         </div>
       </div>
@@ -111,7 +114,7 @@ $var title: watch $category
 
 <!-- Modal for Edit Begin -->
 <div class="modal fade my-modal" id="editModal" tabindex="-1" role="dialog"
-  aria-hidden="flase">
+  aria-hidden="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -122,13 +125,13 @@ $var title: watch $category
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="new-tips-title"> Tips Title </label>
-          <input id="new-tips-title" type=text" placeholder="Title"
+          <label for="edit-tips-title"> Tips Title </label>
+          <input id="edit-tips-title" type="text" placeholder="Title"
             class="form-control">
         </div>
         <div class="form-group">
-          <label for="new-tips-content"> Tips Content </label>
-          <textarea id="new-tips-content" row="3" placeholder="Tips Content"
+          <label for="edit-tips-content"> Tips Content </label>
+          <textarea id="edit-tips-content" rows="3" placeholder="Tips Content"
             class="form-control"></textarea>
         </div>
       </div>
@@ -142,7 +145,7 @@ $var title: watch $category
 
 <!-- Modal for Delete Begin -->
 <div class="modal fade my-modal" id="deleteModal" tabindex="-1" role="dialog"
-  aria-hidden="flase">
+  aria-hidden="false">
   <div class="modal-dialog">
       <div class="modal-body alert alert-danger">
           <button type="button" class="close" data-dismiss="modal"
@@ -159,8 +162,41 @@ $var title: watch $category
       </div>
   </div>
 </div>
-<!-- Modal for Delete End -->
+
+
+<!-- Modal for Login Begin -->
+<div class="modal fade my-modal" id="loginModal" tabindex="-1" role="dialog"
+  aria-hidden="false">
+  <div class="modal-dialog">
+      <div class="modal-body alert alert-info">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;
+          </button>
+          <h4> You Should Login first </h4>
+          <p>
+            <a 
+              href="/login" class="btn btn-primary btn-lg">Login</a>
+            <a 
+              href="/register" class="btn btn-success btn-lg">Register</a>
+          </p>
+      </div>
+  </div>
+</div>
+<!-- Modal for Login End -->
+
+<!-- Modal for Illegal Operation Start -->
+<div class="modal fade my-modal" id="illegalModal" tabindex="-1" role="dialog"
+  aria-hidden="false">
+  <div class="modal-dialog">
+      <div class="modal-body alert alert-info">
+          <button type="button" class="close" data-dismiss="modal"
+            aria-hidden="true">&times;
+          </button>
+          <h4> Illegal Operation </h4>
+      </div>
+  </div>
+</div>
+<!-- Modal for Illegal Operation End -->
 
 
 <!-- Modal for Action End -->
-

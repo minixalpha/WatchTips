@@ -40,3 +40,9 @@ nosetests.xml
 
 # Local configure file
 config.py
+
+# Key
+crtkey/server.*
+
+# Session
+sessions/*

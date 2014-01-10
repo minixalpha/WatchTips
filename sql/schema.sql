@@ -7,13 +7,17 @@ USE watchtips;
 CREATE TABLE `wt_user` (
     `user_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `user_name` TEXT NOT NULL,
-    `user_password` TEXT NOT NULL,
-    PRIMARY KEY (`user_id`)
+    `user_password` VARBINARY(48) NOT NULL,
+    `user_email` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`user_id`),
+    KEY (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wt_category` (
     `category_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `category_name` TEXT NOT NULL,
+    `category_img` TEXT,
+    `category_description` TEXT,
     `user_id` BIGINT(20) NOT NULL,
     PRIMARY KEY (`category_id`),
     FOREIGN KEY (user_id)

@@ -1,0 +1,28 @@
+body {
+    background-color: #eee;
+}
+.main-content-wrapper {
+    text-align: center;
+}
+
+#signio {
+    margin: 8% auto auto auto;
+    width: 300px;
+    height: 250px;
+}
+
+.signio-group input {
+    height: 44px;
+    width: 100%;
+    margin-bottom: 5px;
+/*  border-width: 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; */
+}
+
+.signio-footer button {
+    height: 44px;
+    width: 100%;
+}

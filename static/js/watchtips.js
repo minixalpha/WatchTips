@@ -260,11 +260,14 @@ var actions = function ($) {
     $(idContent).val('');
   }
 
+  function displayDialog(dialogID) {
+    $(dialogID).modal('show');
+  }
+
 
   function hideDialog(dialogID) {
     $(dialogID).modal('hide');
   }
-  
 
   function addTips() {
     hideDialog('#addModal');
@@ -274,6 +277,16 @@ var actions = function ($) {
     console.log(data);
 
     $.post('/add', data, function(gdata) {
+      if (gdata['action'] == 'login') {
+        displayDialog('#loginModal');
+        return;
+      }
+
+      if (gdata['action'] == 'illegal') {
+        displayDialog('#illegalModal');
+        return;
+      }
+
       if (gdata['action'] == 'replace') {
         carousel.empty()
       }
@@ -298,19 +311,29 @@ var actions = function ($) {
   
   function setEditModal() {
     var curTips = activeTips.getContent();
-    $("#editModal #new-tips-title").val(curTips.title);
-    $("#editModal #new-tips-content").val(curTips.content);
+    $("#editModal #edit-tips-title").val(curTips.title);
+    $("#editModal #edit-tips-content").val(curTips.content);
   }
 
   function editTips() {
     hideDialog('#editModal');
     var data = getNewTips(
-        '#editModal #new-tips-title', 
-        '#editModal #new-tips-content');
+        '#editModal #edit-tips-title', 
+        '#editModal #edit-tips-content');
     data.category = tips.getCategory();
     data.id = activeTips.getID();
 
     $.post('/edit', data, function(gdata) {
+      if (gdata['action'] == 'login') {
+        displayDialog('#loginModal');
+        return;
+      }
+
+      if (gdata['action'] == 'illegal') {
+        displayDialog('#illegalModal');
+        return;
+      }
+
       if (gdata['action'] == 'update') {
         activeTips.setContent(data.title, data.content);
       }
@@ -327,6 +350,16 @@ var actions = function ($) {
       'id': id,
     };
     $.post('/delete', data, function(gdata) {
+      if (gdata['action'] == 'login') {
+        displayDialog('#loginModal');
+        return;
+      }
+
+      if (gdata['action'] == 'illegal') {
+        displayDialog('#illegalModal');
+        return;
+      }
+
       if (gdata['action'] == 'delete') {
         activeTips.remove();
 

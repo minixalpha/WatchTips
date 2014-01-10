@@ -3,6 +3,9 @@
 }
 
 /* custome navbar */
+.navbar-wrapper {
+    margin-top: 0px;
+}
 .navbar-brand {
     font-size: x-large;
 }

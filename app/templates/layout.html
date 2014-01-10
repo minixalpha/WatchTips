@@ -23,9 +23,13 @@ $def with (content)
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
+                    $for category in categories:
+                      <li><a href="/watch/$category['category_id']">$category['category_name']</a></li>
+                    <!--
                     <li><a href="/watch/python">Python</a></li>
                     <li><a href="/watch/javascript">JavaScript</a></li>
                     <li><a href="/watch/html5">HTML5</a></li>
+                    -->
                   </ul>
                 </li>
               </ul>
@@ -34,7 +38,10 @@ $def with (content)
                   <a href="/register">Register</a>
                 </li>
                 <li>
-                  <a href="/login">Login</a>
+                  $if loggedin == True:
+                    <a href="/logout">Logout</a>
+                  $else:
+                    <a href="/login">Login</a>
                 </li>
                 <li>
                   <a href="/about">About</a>
